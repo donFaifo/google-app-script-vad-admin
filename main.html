@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= head ?>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <?!= navbar ?>
+
+    <div class="container-fluid">
+      
+      <!-- CONTENIDO -->
+
+      <!-- BOTONERA -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <button class="btn btn-primary mr-4" onclick="goTo(<?= baseUrl ?>, 'newOrder');">Nuevo Pedido</button>
+          <button class="btn btn-outline-primary">Nuevo Presupuesto</button>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <!-- FORMULARIO DE BÚSQUEDA DE TIENDA -->
+        <div class="col-sm-12 col-xl-5 p-3">
+          <div class="card mt-3">
+            <div class="card-body">
+              <div class="card-title mb-3">
+                <h5 class="text-success mb-3">Buscar tienda</h5>
+                <h6 class="card-subtitle mb-3 text-muted" hidden id="lastSearchSentence">Última búsqueda: <div id="lastSearch"></div></h5>
+              </div>
+              <div class="card-text">
+                <div class="row mb-3">
+                  <div class="col-sm-8">
+                    <input class="form-control" id="searchShop"
+                      type="search" 
+                      placeholder="Nombre, número o código postal" 
+                      aria-label="Buscar tienda"
+                      list="allShops"
+                      onkeydown="inputSearch(event)">
+                      <datalist id="allShops">
+                        
+                      </datalist>
+                  </div>
+                  <div class="col-sm-4">
+                    <button class="btn btn-outline-primary col-12" id="searchButton" onclick="shopSearch()">Buscar</button>
+                  </div>
+                </div>
+
+                <div class="row p-2">
+                  <h5 class="col-sm-5">Tienda:</h5>
+                  <h5 class="col-sm-7" id="shop">-</h5>
+                </div>
+
+                <div class="row p-2">
+                  <h6 class="col-sm-5">Provincia:</h6>
+                  <div class="col-sm-7" id="province">-</div>
+                </div>
+
+                <div class="row p-2">
+                  <h6 class="col-sm-5">Comunidad autónoma:</h6>
+                  <div class="col-sm-7" id="area">-</div>
+                </div>
+
+                <div class="row p-2">
+                  <h6 class="col-sm-5">Dirección:</h6>
+                  <div class="col-sm-7" id="address">-</div>
+                </div>
+
+                <div class="row p-2">
+                  <h6 class="col-sm-5">Info tienda:</h6>
+                  <div class="col-sm-7" id="info">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ÁREA REFERENCIA -->
+          <div class="card mt-3">
+            <div class="card-body">
+              <div class="card-title mb-3">
+                <h5 class="text-success mb-3">Referencia</h5>
+              </div>
+
+              <div class="card-text">
+                <div class="row mb-3">
+                  <div class="col-sm-8">
+                    <input class="form-control" id="searchReference"
+                      type="search" 
+                      placeholder="Número de referencia..." 
+                      aria-label="Buscar referencia"
+                      onkeydown="inputSearchRef(event)"
+                      autocomplete="off">
+                  </div>
+                  <div class="col-sm-4">
+                    <button class="btn btn-outline-primary col-12" id="searchReferenceButton" onclick="referenceSearch()">Buscar</button>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-sm-6" id="avaibleUnitsLabel">Unidades disponibles:</div>
+                  <div class="col-sm-2 text-right font-weight-bold" id="avaibleUnits">--</div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <!-- ÁREA DE PEDIDOS -->
+        <div class="col-sm-12 col-xl-7 p-3">
+
+          <div class="row">
+
+            <!-- PEDIDOS DEL DÍA -->
+            <div class="col-12 mt-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-success" id="totalOrders">Pedidos del día: </h5>
+                  <h6 class="card-subtitle mb-3 text-muted" id="totalAmount">Importe total: </h5>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">nº Ped.</th>
+                        <th scope="col">Tienda</th>
+                        <th scope="col">Importe</th>
+                        <th scope="col">Método de pago</th>
+                      </tr>
+                    </thead>
+                    <tbody id="dailyOrders">
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- PRESUPUESTOS PENDIENTES -->
+            <div class="col-12 mt-3">
+              <div class="card">
+                <div class="card-body">    
+                  <h5 class="text-success card-title" id="totalEstimations">Presupuestos pendientes: </h5>
+                  <h6 class="text-success card-subtitle mb-3 text-muted" id="totalEstimationsAmount">Importe total: </h6>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">nº Presup.</th>
+                        <th scope="col">Tienda</th>
+                        <th scope="col">Importe</th>
+                        <th scope="col">Notas</th>
+                      </tr>
+                    </thead>
+                    <tbody id="estimations">
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- ESTADÍSTICAS DE LA SEMANA -->
+            <div class="col-12 mt-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="text-success card-title">Estadística de la semana</h5>
+                  <h6 class="text-success card-subtitle mb-2 text-muted" id="weeklyTotalOrders">Total pedidos: </h6>
+                  <h6 class="text-success card-subtitle mb-3 text-muted" id= "weeklyTotalAmount">Importe total: </h6>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Día</th>
+                        <th scope="col">Nº de pedidos</th>
+                        <th scope="col">Importe total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="weeklyStatistics">
+                        
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  <!-- BOOTSTRAP SCRIPT & JQUERY & DATATABLE -->
+  <?!= bsScripts ?>
+
+  <script>
+    // Establece el enlace Inicio de la navbar como activo
+    $("#navbarLinkHome").addClass("active");
+    
+    // Establece las variables day, month, year, weekday con la fecha actual
+    let date = new Date();
+    // var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    var day = date.getDate();
+    var month = date.getMonth() +1 < 10 ? '0' + (date.getMonth()+1) : date.getMonth() + 1;
+    var year = date.getFullYear();
+    console.log(`day ${day}, month ${month}, year ${year}`);
+    
+    // Rellena las tiendas
+    google.script.run.withSuccessHandler((shops) => {
+      shops.forEach((shop) => {
+        $("#allShops").append(`<option value="${shop}" />`);
+      });
+    }).getShops();
+
+    // Añade los pedidos del día
+    google.script.run.withSuccessHandler((dailyOrdersData) => {
+      $("#totalOrders").append(dailyOrdersData.totalOrders);
+      $("#totalAmount").append(dailyOrdersData.totalAmount + " €");
+      dailyOrdersData.data.forEach((order) => {
+        $("#dailyOrders").append(`
+          <tr>
+            <td scope="row">${order.number}</th>
+            <td>${order.shop}</td>
+            <td>${order.amount} €</td>
+            <td>${order.paymentMethod}</td>
+          </tr>`);
+      })
+    }).getDailyOrders(day, month, year);
+
+    // Añade los presupuestos
+    google.script.run.withSuccessHandler((data) => {
+      $("#totalEstimations").append(data.totalEstimations);
+      $("#totalEstimationsAmount").append(data.totalAmount).append(" €");
+      data.data.forEach(
+        (estimation) => {
+          $("#estimations").append(`
+            <tr>
+              <td scope="row">${estimation.date}</td>
+              <td scope="row">${estimation.estimationNumber}</th>
+              <td>${estimation.shop}</td>
+              <td>${estimation.amount} €</td>
+              <td>${estimation.notes}</td>
+            </tr>
+          `);
+        }
+      );
+    }).getEstimations()
+
+    // Obtiene las estadísticas semanales
+    google.script.run.withSuccessHandler((weekData) => {
+      $("#weeklyTotalOrders").append(weekData.totalOrders);
+      $("#weeklyTotalAmount").append(weekData.totalAmount).append(" €");
+      weekData.data.forEach((day) => {
+        $("#weeklyStatistics").append(
+          `<tr>
+            <td scope="row">${day[0]}</th>
+            <td>${day[1]}</td>
+            <td>${day[2]} €</td>
+          </tr>`
+        )
+      })
+    }).getWeeklyStatistics(day, month, year);
+
+    function shopSearch() {
+      var shopText = $("#searchShop").val();
+
+      if (!isNaN(shopText)) {
+        shopNumber = parseInt(shopText);
+        $("#lastSearch").html(shopNumber);
+        $("#lastSearchSentence").prop("hidden", false);
+      } else {
+        $("#lastSearchSentence").prop("hidden", true);
+        var initialIndex = shopText.indexOf("(") + 1;
+        var finalIndex = shopText.indexOf(")");
+        var shopNumber = shopText.substring(initialIndex, finalIndex);
+      }
+
+      if ($("#searchShop").val() != "") {
+        $("#searchButton").prop("disabled", true);
+        $("#searchButton").html("Buscando...");
+        google.script.run.withSuccessHandler(printShopData).getShop(shopNumber);
+      }
+    }
+
+    function inputSearch(e) {
+      if (e.keyCode==13 && $("#searchShop").val() != "") {
+        shopSearch();
+      }
+    }
+
+    function referenceSearch() {
+      var refNumber = $("#searchReference").val();
+
+      if (!isNaN(refNumber)) {
+        reference = parseInt(refNumber);
+      }
+
+      $("#searchButton").prop("disabled", true);
+        $("#searchButton").html("Buscando...");
+        google.script.run.withSuccessHandler(printRefData).getReferenceInfo(refNumber);
+
+      // window.open("https://leroymerlin.es/fp/" + refNumber);
+    }
+
+    function inputSearchRef(e) {
+      if (e.keyCode==13 && $("#searchReference").val() != "") {
+        referenceSearch();
+      }
+    }
+
+    function printShopData(shop) {
+      $("#shop").text(shop.shop);
+      $("#province").text(shop.province);
+      $("#area").text(shop.area);
+      $("#address").text(shop.address);
+      
+      $("#info").text(shop.info);
+      $("#searchShop").val("");
+      $("#searchButton").removeAttr("disabled");
+      $("#searchButton").html("Buscar");
+    }
+
+    function printRefData(refInfo) {
+      $("#avaibleUnits").html(refInfo.qt);
+      $("#avaibleUnitsLabel").html("Unidades disponibles (" + refInfo.ref + "): ");
+      $("#searchReferenceButton").removeAttr("disabled");
+      $("#searchReferenceButton").html("Buscar");
+    }
+
+    function goTo(baseUrl, destination) {
+      url = baseUrl + `?dest=${destination}`;
+      console.log(url);
+      window.open(url, "_top");
+    }
+  </script>
+  </body>
+</html>

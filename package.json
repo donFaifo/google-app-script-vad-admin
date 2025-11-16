@@ -1,0 +1,12 @@
+{
+  "name": "google-app-script-vad-admin",
+  "version": "1.0.0",
+  "description": "Aplicación para el cálculo de equipo solar fotovoltaico",
+  "license": "ISC",
+  "author": "Miguel Ángel Guerrero",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

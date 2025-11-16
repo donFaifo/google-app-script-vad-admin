@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= head ?>
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    <?!= navbar ?>
+
+    <div class="container">
+      
+      <!-- CONTENIDO -->
+
+      <div class="row">
+
+        <!-- FORMULARIO DE BÚSQUEDA DE TIENDA -->
+        <div class="col-sm-12 p-3">
+          <div class="card mt-3">
+            <div class="card-body">
+              <div class="card-title mb-3">
+                <h5 class="text-success mb-3">Nuevo pedido</h5>
+              </div>
+              <div class="card-text">
+
+                <div class="row mb-3 mt-3">
+                  <div class="col-sm-4">
+                    <h6>Fecha del pedido: </h6>
+                  </div>
+                  <div class="col-sm-8">
+                    <input class="form-control" id="orderDate"
+                      type="date"
+                      tabindex="0">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-sm-4">
+                    <h6>Número de pedido: </h6>
+                  </div>
+                  <div class="col-sm-8">
+                    <input class="form-control" id="orderNumber"
+                      type="number" 
+                      placeholder="Pedido..." 
+                      aria-label="Número de pedido"
+                      autocomplete="off"
+                      tabindex="1">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-sm-4">
+                    <h6>Tienda: </h6>
+                  </div>
+                  <div class="col-sm-8">
+                    <input class="form-control" id="searchShop"
+                      type="search" 
+                      placeholder="Tienda..." 
+                      aria-label="Buscar tienda"
+                      list="allShops"
+                      tabindex="2">
+                      <datalist id="allShops">
+                        <!-- google.script -->
+                      </datalist>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-sm-4">
+                    <h6>Importe: </h6>
+                  </div>
+                  <div class="col-sm-8">
+                    <input class="form-control" id="orderAmount"
+                      type="number" 
+                      placeholder="Importe en euros..." 
+                      aria-label="Importe del pedido"
+                      autocomplete="off"
+                      tabindex="3">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-sm-4">
+                    <h6>Método de pago: </h6>
+                  </div>
+                  <div class="col-sm-8">
+                    <select id="paymentMethod" class="form-control" onchange="onPaymentMethodChange()" tabindex="4">
+                      <!-- fillPaymentMethod() -->
+                    </select>
+                  </div>
+                </div>
+
+                <div id="customerData" hidden>
+
+                  <div class="row mb-3">
+                    <div class="col-sm-4">
+                      <h6>Nombre del cliente: </h6>
+                    </div>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="custormerName"
+                        type="text" 
+                        placeholder="Nombre y apellidos del cliente..." 
+                        aria-label="Nombre y apellidos del cliente"
+                        autocomplete="new-password"
+                        tabindex="5">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-sm-4">
+                      <h6>DNI/NIE/CIF: </h6>
+                    </div>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="customerId"
+                        type="text" 
+                        placeholder="DNI, NIE, CIF o ID cliente..." 
+                        aria-label="ID cliente"
+                        autocomplete="new-password"
+                        tabindex="6">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-sm-4">
+                      <h6>Teléfono: </h6>
+                    </div>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="customerPhone"
+                        type="tel" 
+                        placeholder="Teléfono de contacto..." 
+                        aria-label="Teléfono cliente"
+                        autocomplete="new-password"
+                        tabindex="7">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-sm-4">
+                      <h6>eMail: </h6>
+                    </div>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="customerMail"
+                        type="email" 
+                        placeholder="Correo electrónico del cliente..." 
+                        aria-label="Mail cliente"
+                        autocomplete="new-password"
+                        tabindex="8">
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row mb-3 mt-3">
+                  <div class="col-sm-4">
+                    <h6>Fecha de entrega: </h6>
+                  </div>
+                  <div class="col-sm-8">
+                    <input class="form-control" id="deliveryDate"
+                      type="date"
+                      tabindex="9">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-sm-4">
+                    <h6>Método de entrega: </h6>
+                  </div>
+                  <div class="col-sm-8">
+                    <select id="sendingMethod" class="form-control" tabindex="10">
+                      <!-- fillPaymentMethod() -->
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-sm-4 offset-8 mt-2">
+                    <input id="baseUrl" value="<?= baseUrl ?>" hidden>
+                    <button class="btn btn-primary col-12" id="send" onclick="save()" tabindex="11">GUARDAR</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+
+  <!-- BOOTSTRAP SCRIPT & JQUERY & DATATABLE -->
+  <?!= bsScripts ?>
+
+  <script>
+    
+    const payMethod = [
+        {value: "phoneAndSell", text: "Phone&Sell"},
+        {value: "shopLink", text: "Link desde tienda"},
+        {value: "bankTransfer", text: "Transferencia bancaria"},
+        {value: "financing", text: "Financiación"},
+    ];
+
+    const sendMethod = [
+      {value: "pickUp", text: "Recogida en tienda"},
+      {value: "shopDelivery", text: "Envío desde tienda"},
+      {value: "edd", text: "EDD"},
+      {value: "edp", text: "EDP"},
+    ];
+
+    fillPaymentMethod();
+    fillSendingMethod();
+
+    var d = new Date();
+    var d1 = new Date();
+    d1.setDate(d1.getDate() + 1);
+
+    
+
+    /**
+     * Obtiene la fecha de hoy
+     */
+    google.script.run.withSuccessHandler((date) => {
+      $("#orderDate").val(date.html);
+    }).getFormattedDate(d.toString());
+
+    /**
+     * Obtiene la fecha de mañana
+     */
+    google.script.run.withSuccessHandler((date) => {
+      $("#deliveryDate").val(date.html);
+    }).getFormattedDate(d1.toString());
+
+    /**
+     * Rellena las tiendas
+     */
+    google.script.run.withSuccessHandler((shops) => {
+      shops.forEach((shop) => {
+        $("#allShops").append(`<option value="${shop}" />`);
+      });
+    }).getShops();
+    
+    function shopSearch() {
+      var shopText = $("#searchShop").val();
+
+      if (!isNaN(shopText)) {
+        shopNumber = parseInt(shopText);
+        $("#lastSearch").html(shopNumber);
+        $("#lastSearchSentence").prop("hidden", false);
+      } else {
+        $("#lastSearchSentence").prop("hidden", true);
+        var initialIndex = shopText.indexOf("(") + 1;
+        var finalIndex = shopText.indexOf(")");
+        var shopNumber = shopText.substring(initialIndex, finalIndex);
+      }
+    }
+
+    function fillPaymentMethod() {
+
+
+      payMethod.forEach((method) => {
+        $("#paymentMethod").append(
+          `<option value="${method.value}">${method.text}</option>`
+        )
+      });
+    }
+
+    function fillSendingMethod() {
+      sendMethod.forEach((method) => {
+        $("#sendingMethod").append(
+          `<option value="${method.value}">${method.text}</option>`
+        )
+      });
+    }
+
+    function onPaymentMethodChange() {
+      let method = $("#paymentMethod").val();
+      if(method == 'phoneAndSell') {
+        $("#customerData").prop("hidden", true);
+      } else {
+        $("#customerData").prop('hidden', false);
+      }
+    }
+
+    function save() {
+      var baseUrl = $("#baseUrl").val();
+      $("#send").prop("disabled", true);
+      $("#send").html("Guardando...");
+
+      let sendingMethod;
+      let paymentMethod;
+
+      sendMethod.forEach((method) => {
+        if(method.value === $("#sendingMethod").val()) {
+          sendingMethod = method.text;
+        }
+      })
+
+      payMethod.forEach((method) => {
+        if(method.value === $("#paymentMethod").val()) {
+          paymentMethod = method.text;
+        }
+      })
+
+      order = {
+        date: $("#orderDate").val(),
+        orderNumber: $("#orderNumber").val(),
+        shop: $("#searchShop").val(),
+        customerName: $("#custormerName").val(),
+        customerPhone: $("#customerPhone").val(),
+        customerMail: $("#customerMail").val(),
+        customerId: $("#customerId").val(),
+        orderAmount: $("#orderAmount").val().replace('.', ','),
+        paymentMethod: paymentMethod,
+        deliveryDate: $("#deliveryDate").val(),
+        sendingMethod: sendingMethod
+      }
+
+      google.script.run.addOrder(order);
+
+      window.open(baseUrl, "_top");
+    }
+  </script>
+  </body>
+</html>
+
