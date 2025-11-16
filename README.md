@@ -4,11 +4,11 @@ Aplicación creada durante el período de venta telefónica en la pandemia. La c
 
 ## Motivación
 
-Durante el período de pandemia en 2020 se produjo un parón a nivel mundial que hizo que muchas empresas tuvieran que adaptarse a una situación insólita. Leroy Merlin habilitó el servicio de venta telefónica, que por aquel entonces no existía, y pusieron a muchos de sus vendedores a prestar este servicio. Siendo yo uno de ellos, me encontré realizando ventas a nivel nacional desde casa con un sistema recién implantado y un equipo recién formado.
+Durante el período de pandemia en 2020 se produjo un parón a nivel mundial que hizo que muchas empresas tuvieran que adaptarse a una situación insólita. *Leroy Merlin* habilitó el servicio de venta telefónica, que por aquel entonces no existía, y pusieron a muchos de sus vendedores a prestar este servicio. Siendo yo uno de ellos, me encontré realizando ventas a nivel nacional desde casa con un sistema recién implantado y un equipo recién formado.
 
 Los clientes llamaban a una centralita que pasaba la llamada a un vendedor disponible y éste, haciendo uso de la web y de algunas aplicaciones y sistemas que la empresa habilitó, debía localizar la tienda más cercana, realizar el pedido y hacer su seguimiento. También tenía que confeccionar presupuestos para los clientes que los solicitasen.
 
-Para realizar el pago había varios métodos, cada uno con unos procedimientos diferentes que pasaban por copiar unos datos a una hoja de cálculo compartida en la nube, dar los datos bancarios para realizar una transferencia y más tarde se implantaron distintos métodos de Phone&Sell que permitían unos pagos más ágiles.
+Para realizar el pago había varios métodos, cada uno con unos procedimientos diferentes que pasaban por copiar unos datos a una hoja de cálculo compartida en la nube, dar los datos bancarios para realizar una transferencia y más tarde se implantaron distintos métodos de *Phone&Sell* que permitían unos pagos más ágiles.
 
 También había diferentes métodos de entrega de productos: En tienda, o con envío por diferentes canales internos. Cada uno con sus protocolos.
 
